@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerShip
+      name: Mooncrest
       rect:
         serializedVersion: 2
         x: 90
@@ -218,7 +218,7 @@ TextureImporter:
         width: 64
         height: 73
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -226,6 +226,90 @@ TextureImporter:
       bones: []
       spriteID: 59bee9e16db1cc34b89ebe2728b3ae57
       internalID: 219793234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bulldozer
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 112
+        width: 40
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28778631642342c409658dea0026ee3f
+      internalID: -1028843892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zapper
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 142
+        width: 32
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a531bf7ac525c64790bc1af79db0118
+      internalID: -101757210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerSelectBox
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 31
+        width: 67
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fd65b28d6bf9554e937b9c3df2fddb8
+      internalID: 1088665419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerupBox
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 62
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a73c13dfec283247a57f4fd2dc10cc4
+      internalID: 149421758
       vertices: []
       indices: 
       edges: []
@@ -242,11 +326,15 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Moon1: 1311372765
-      PlayerShip: -308417638
+      PlayerSelectBox: 1088665419
       Boss: 219793234
       Wall1: 672145992
+      Zapper: -101757210
       Wall2: -163479326
       Moon2: -1047174377
+      Bulldozer: -1028843892
+      Mooncrest: -308417638
+      PowerupBox: 149421758
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

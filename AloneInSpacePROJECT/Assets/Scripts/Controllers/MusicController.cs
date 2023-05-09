@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class MusicController : MonoBehaviour
 {
+    public static MusicController controller;
     public MusicStruct[] musics;
     public AudioSource source;
 
     private int nextSongIdx = -1;
     
+    private void Awake() {
+        if(controller == null){
+            controller = this;
+        }else{
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(this);
+    }
     private void Start() {
         source = GetComponent<AudioSource>();
     }
@@ -24,5 +33,8 @@ public class MusicController : MonoBehaviour
     }
     private void nextSong(){
         ChangeSong(nextSongIdx);
+    }
+    public void StopSong(){
+        source.Stop();
     }
 }
