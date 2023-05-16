@@ -5,7 +5,8 @@ public class GameController : MonoBehaviour
 {
     public static GameController controller;
     public UIController uiController;
-    
+    public Player player;
+
     public PlayerCharacter selectedCharacter;
     public int score, health, maxHealth;
     private void Awake() {
@@ -29,6 +30,16 @@ public class GameController : MonoBehaviour
             case PlayerCharacter.Mooncrest:
                 health = 3;
                 break;
+        }
+    }
+
+    public void ToggleMouseCursor(){
+        if(Cursor.visible){
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }else{
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }

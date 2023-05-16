@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 
 public class ButtonsHandler : MonoBehaviour
 {
+    //FIXME se o mouse clica fora ele para de funcionar nos buttons
     public Text[] uiTexts;
     public EventSystem eventSystem;
 
