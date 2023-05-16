@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 {
     public GameObject[] characters;
     public GameObject[] powerUps;
-    private enum Special{ScreenBomb, LaserBeam, StarWay}
+    private enum SPECIAL{SCREENBOMB, LASERBEAM, STARWAY}
 
 
 
@@ -78,10 +78,28 @@ public class Player : MonoBehaviour
 
 
 
-    //POWERUPS
-    void PowerupHandler(){
+    //SPECIALS
+    //variables
+    SPECIAL currentSpecial;
 
+    //functions
+    public float specialRate;
+    float specialAmount = 0;
+    //functions
+    void SpecialHandler(){
+        specialAmount+= 1 * specialRate * Time.deltaTime;
     }
+
+
+
+    //POWERUPS
+
+    //variables
+    
+    void PowerupHandler(){
+        
+    }
+
 
 
 
@@ -91,6 +109,7 @@ public class Player : MonoBehaviour
         for (int i = 0; i < characters.Length; i++)
         {
             if(i == spriteToEnable){
+                currentSpecial = (SPECIAL)i;
                 characters[i].SetActive(true);
             }else{
                 characters[i].SetActive(false);
@@ -131,5 +150,6 @@ public class Player : MonoBehaviour
     private void Update() {
         PlayerMovement();
         ShootHandler();
+        SpecialHandler();
     }
 }

@@ -255,6 +255,7 @@ MonoBehaviour:
   fireRate: 0.2
   bulletSpeed: 10
   bulletDestroyTime: 1.5
+  specialRate: 0.2
 --- !u!54 &2384049704204040538
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
         else if(tag == "EnemyBullet" && other.tag != "Enemy"){
             //Handle EnemyBullet collision
 
-
+            
         }
     }
 }
