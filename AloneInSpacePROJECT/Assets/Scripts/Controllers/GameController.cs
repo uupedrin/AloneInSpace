@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
     public Player player;
 
     public PlayerCharacter selectedCharacter;
-    public int score, health, maxHealth;
+    public int score, health, MAXHEALTH;
     private void Awake() {
         if(controller == null){
             controller = this;
@@ -23,12 +23,15 @@ public class GameController : MonoBehaviour
         switch(character){
             case PlayerCharacter.Bulldozer:
                 health = 5;
+                MAXHEALTH = 5;
                 break;
             case PlayerCharacter.Zapper:
                 health = 4;
+                MAXHEALTH = 4;
                 break;
             case PlayerCharacter.Mooncrest:
                 health = 3;
+                MAXHEALTH = 3;
                 break;
         }
     }
@@ -40,6 +43,20 @@ public class GameController : MonoBehaviour
         }else{
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+        }
+    }
+
+    public void ReducePlayerHealth(int amount=1){
+        health-= amount;
+        if(health < 0){
+            
+        }
+    }
+
+    public void IncreasePlayerHealth(int amount = 1){
+        health+= amount;
+        if (health > MAXHEALTH){
+            health = MAXHEALTH;
         }
     }
 }

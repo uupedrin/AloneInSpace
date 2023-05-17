@@ -12,7 +12,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameObject[] characters;
-    public GameObject[] powerUps;
     private enum POWERUPS{SCREENBOMB, LASERBEAM, STARWAY, HEALTHGAIN, MISSILE, FIRERATEUP, SHIELD, NONE}
 
 
@@ -39,6 +38,7 @@ public class Player : MonoBehaviour
                 __PlayerSetUp(2);
                 break;
         }
+        GameController.controller.SetPlayerCharacter(GameController.controller.selectedCharacter);
     }
 
     void PlayerMovement(){ //Handle player movement
@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
     public Transform[] gunPositions = new Transform[3]; //0 == Arma 1 | 2 == Arma 2 | 3 == Powerup
     bool canFire = true;
     public float fireRate, bulletSpeed, bulletDestroyTime;
+    float OGFIRERATE;
 
     //functions
     void ShootHandler(){
@@ -90,18 +91,18 @@ public class Player : MonoBehaviour
     void SpecialHandler(){
         if(specialAmount<100 && !barFilled){
             specialAmount+= 1 * specialRate * Time.deltaTime;
-            _PowerupUISendUpdate(specialAmount);
+            _UpdateSpecialUI(specialAmount);
         }else if (specialAmount >= 100 && !barFilled){
             specialAmount = 100;
-            _PowerupUISendUpdate(specialAmount);
+            _UpdateSpecialUI(specialAmount);
             barFilled = true;
         }
 
         if(Input.GetButtonUp("GetSpecial") && barFilled){
 
             specialAmount = 0;
-            _PowerupUISendUpdate(specialAmount);
-            SetPowerup((int)currentSpecial);
+            _UpdateSpecialUI(specialAmount);
+            _SetPowerup((int)currentSpecial);
             barFilled = false;
         }
     }
@@ -111,42 +112,94 @@ public class Player : MonoBehaviour
     //POWERUPS
     //variables
     POWERUPS[] currentPwps = {POWERUPS.NONE, POWERUPS.NONE};
+    POWERUPS powerupInEffect;
 
 
     //functions
-    void PowerupHandler(){
+    void PowerupUseHandler(){
         if(Input.GetButtonDown("UsePowerup") && currentPwps[0] != POWERUPS.NONE){
-            /* switch(currentPwps[0]){
-
-            } */
-            UsePowerup();           
+            switch(currentPwps[0]){
+                case POWERUPS.SCREENBOMB: DisableCurrentPowerup(); powerupInEffect = POWERUPS.SCREENBOMB; ScreenBomb(); break;
+                case POWERUPS.LASERBEAM: DisableCurrentPowerup(); powerupInEffect = POWERUPS.LASERBEAM; LaserBeam(); break;
+                case POWERUPS.STARWAY: DisableCurrentPowerup(); powerupInEffect = POWERUPS.STARWAY; StarWay(); break;
+                case POWERUPS.HEALTHGAIN: DisableCurrentPowerup(); powerupInEffect = POWERUPS.HEALTHGAIN; HealthGain(); DisableCurrentPowerup(); break;
+                case POWERUPS.MISSILE: DisableCurrentPowerup(); powerupInEffect = POWERUPS.MISSILE; Missile(); break;
+                case POWERUPS.FIRERATEUP: DisableCurrentPowerup(); powerupInEffect = POWERUPS.FIRERATEUP; FireRateUp(); break;
+                case POWERUPS.SHIELD: DisableCurrentPowerup(); powerupInEffect = POWERUPS.SHIELD; Shield(); break;
+            }
+            _UsePowerup();           
         }
     }
 
-    public void SetPowerup(int powerUpIndex){
-        if(currentPwps[0] == POWERUPS.NONE){
-            currentPwps[0] = (POWERUPS)powerUpIndex;
-        }else if(currentPwps[1] != POWERUPS.NONE){
-            currentPwps[0] = currentPwps[1];
-            currentPwps[1] = (POWERUPS)powerUpIndex;
+    void DisableCurrentPowerup(){
+        switch(powerupInEffect){
+            case POWERUPS.SCREENBOMB: ScreenBomb(); break;
+                case POWERUPS.LASERBEAM: LaserBeam(); break;
+                case POWERUPS.STARWAY: StarWay(); break;
+                case POWERUPS.HEALTHGAIN: HealthGain(); break;
+                case POWERUPS.MISSILE: Missile(); break;
+                case POWERUPS.FIRERATEUP: FireRateUp(); break;
+                case POWERUPS.SHIELD: Shield(); break;
+        }
+    }
+
+
+    //Powerups Variables
+    bool screenBombIsActive, laserBeamIsActive, starWayIsActive, healthGainIsActive, missileIsActive, fireRateisActive, shieldIsActive;
+    void ScreenBomb(){
+        screenBombIsActive = !screenBombIsActive;
+        if(screenBombIsActive){
+
+        }else{//when disabled
+
+        }
+    }
+    void LaserBeam(){
+        laserBeamIsActive = !laserBeamIsActive;
+
+    }
+    void StarWay(){
+        starWayIsActive = !starWayIsActive;
+
+    }
+    void HealthGain(){
+        healthGainIsActive = !healthGainIsActive;
+        if(healthGainIsActive){
+            GameController.controller.IncreasePlayerHealth();
+        }
+
+
+    }
+    void Missile(){
+        missileIsActive = !missileIsActive;
+        if(missileIsActive){
+
         }else{
-            currentPwps[1] = (POWERUPS)powerUpIndex;
+
         }
-        for (int i = 0; i < currentPwps.Length; i++)
-        {
-            GameController.controller.uiController.SetPowerupImages(i, (int)currentPwps[i]);
-        }
+
     }
 
-    public void UsePowerup(){
-        currentPwps[0] = currentPwps[1];
-        currentPwps[1] = POWERUPS.NONE;
-        for (int i = 0; i < currentPwps.Length; i++)
-        {
-            GameController.controller.uiController.SetPowerupImages(i, (int)currentPwps[i]);
+    public float FireRatePWPValue;
+    void FireRateUp(){
+        fireRateisActive = !fireRateisActive;
+        if(fireRateisActive){
+            fireRate = FireRatePWPValue;
+        }else{
+            fireRate = OGFIRERATE;
         }
+
     }
 
+    public GameObject shield;
+    void Shield(){
+        shieldIsActive = !shieldIsActive;
+        if(shieldIsActive){
+            shield.SetActive(true);
+        }else{
+            shield.SetActive(false);
+        }
+    }
 
 
 
@@ -186,8 +239,36 @@ public class Player : MonoBehaviour
         }
     }
 
-    void _PowerupUISendUpdate(float specialFilling){
+    void _UpdateSpecialUI(float specialFilling){
         GameController.controller.uiController.increaseSpecialBar(specialFilling);
+    }
+    void _UpdatePowerupUI(){
+        for (int i = 0; i < currentPwps.Length; i++)
+        {
+            GameController.controller.uiController.SetPowerupImages(i, (int)currentPwps[i]);
+        }
+    }
+    public void _SetPowerup(int powerUpIndex){
+        if(currentPwps[0] == POWERUPS.NONE){
+            currentPwps[0] = (POWERUPS)powerUpIndex;
+        }else if(currentPwps[1] != POWERUPS.NONE){
+            currentPwps[0] = currentPwps[1];
+            currentPwps[1] = (POWERUPS)powerUpIndex;
+        }else{
+            currentPwps[1] = (POWERUPS)powerUpIndex;
+        }
+        for (int i = 0; i < currentPwps.Length; i++)
+        {
+            _UpdatePowerupUI();
+        }
+    }
+    public void _UsePowerup(){
+        currentPwps[0] = currentPwps[1];
+        currentPwps[1] = POWERUPS.NONE;
+        for (int i = 0; i < currentPwps.Length; i++)
+        {
+            _UpdatePowerupUI();
+        }
     }
         
 
@@ -195,6 +276,7 @@ public class Player : MonoBehaviour
     //Unity Functions
     private void Start() {
         GameController.controller.player = this;
+        OGFIRERATE = fireRate;
         SetPlayer();
     }
 
@@ -202,6 +284,14 @@ public class Player : MonoBehaviour
         PlayerMovement();
         ShootHandler();
         SpecialHandler();
-        PowerupHandler();
+        PowerupUseHandler();
+    }
+
+    void OnCollisionEnter(Collision collisionInfo)
+    {
+        if(collisionInfo.gameObject.CompareTag("Powerup")){
+            GameObject powerup = collisionInfo.gameObject;
+            _SetPowerup(powerup.GetComponent<Powerups>().powerupIndex);
+        }
     }
 }
