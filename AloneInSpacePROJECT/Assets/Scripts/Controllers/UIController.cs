@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
@@ -40,5 +41,27 @@ public class UIController : MonoBehaviour
             break;
         }
         GameController.controller.SetPlayerCharacter(selectedCharacter);
+    }
+
+
+
+    //POWERUPS
+    //variables
+    public Image specialBarFill, specialButton;
+    public Image[] powerUpBoxes;
+    public Sprite[] powerUpImages;
+
+    //functions
+    public void increaseSpecialBar(float specialFilling){
+        float toFill = specialFilling / 100;
+        specialBarFill.fillAmount = toFill;
+        if (toFill == 1 && !specialButton.enabled){
+            specialButton.enabled = true;
+        } else if (toFill < 1 && specialButton.enabled){
+            specialButton.enabled = false;
+        }
+    }
+    public void SetPowerupImages(int boxIndex, int imageIndex){
+        powerUpBoxes[boxIndex].sprite = powerUpImages[imageIndex];
     }
 }

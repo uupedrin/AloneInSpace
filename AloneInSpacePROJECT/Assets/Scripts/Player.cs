@@ -4,16 +4,16 @@ using UnityEngine;
 
 /*
     Features list
-    TODO Armazenar os Powerups
     TODO Gerenciar vida
     TODO Colisão com balas
+    TODO Organizar o código dos powerups e programar seus efeitos
 */
 
 public class Player : MonoBehaviour
 {
     public GameObject[] characters;
     public GameObject[] powerUps;
-    private enum SPECIAL{SCREENBOMB, LASERBEAM, STARWAY}
+    private enum POWERUPS{SCREENBOMB, LASERBEAM, STARWAY, HEALTHGAIN, MISSILE, FIRERATEUP, SHIELD, NONE}
 
 
 
@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
     public Transform[] gunPositions = new Transform[3]; //0 == Arma 1 | 2 == Arma 2 | 3 == Powerup
     bool canFire = true;
     public float fireRate, bulletSpeed, bulletDestroyTime;
+
     //functions
     void ShootHandler(){
         if (Input.GetButton("Fire1") && canFire)
@@ -80,24 +81,70 @@ public class Player : MonoBehaviour
 
     //SPECIALS
     //variables
-    SPECIAL currentSpecial;
-
-    //functions
+    POWERUPS currentSpecial;
     public float specialRate;
     float specialAmount = 0;
+    bool barFilled = false;
+
     //functions
     void SpecialHandler(){
-        specialAmount+= 1 * specialRate * Time.deltaTime;
+        if(specialAmount<100 && !barFilled){
+            specialAmount+= 1 * specialRate * Time.deltaTime;
+            _PowerupUISendUpdate(specialAmount);
+        }else if (specialAmount >= 100 && !barFilled){
+            specialAmount = 100;
+            _PowerupUISendUpdate(specialAmount);
+            barFilled = true;
+        }
+
+        if(Input.GetButtonUp("GetSpecial") && barFilled){
+
+            specialAmount = 0;
+            _PowerupUISendUpdate(specialAmount);
+            SetPowerup((int)currentSpecial);
+            barFilled = false;
+        }
     }
 
 
 
     //POWERUPS
-
     //variables
-    
+    POWERUPS[] currentPwps = {POWERUPS.NONE, POWERUPS.NONE};
+
+
+    //functions
     void PowerupHandler(){
-        
+        if(Input.GetButtonDown("UsePowerup") && currentPwps[0] != POWERUPS.NONE){
+            /* switch(currentPwps[0]){
+
+            } */
+            UsePowerup();           
+        }
+    }
+
+    public void SetPowerup(int powerUpIndex){
+        if(currentPwps[0] == POWERUPS.NONE){
+            currentPwps[0] = (POWERUPS)powerUpIndex;
+        }else if(currentPwps[1] != POWERUPS.NONE){
+            currentPwps[0] = currentPwps[1];
+            currentPwps[1] = (POWERUPS)powerUpIndex;
+        }else{
+            currentPwps[1] = (POWERUPS)powerUpIndex;
+        }
+        for (int i = 0; i < currentPwps.Length; i++)
+        {
+            GameController.controller.uiController.SetPowerupImages(i, (int)currentPwps[i]);
+        }
+    }
+
+    public void UsePowerup(){
+        currentPwps[0] = currentPwps[1];
+        currentPwps[1] = POWERUPS.NONE;
+        for (int i = 0; i < currentPwps.Length; i++)
+        {
+            GameController.controller.uiController.SetPowerupImages(i, (int)currentPwps[i]);
+        }
     }
 
 
@@ -109,7 +156,7 @@ public class Player : MonoBehaviour
         for (int i = 0; i < characters.Length; i++)
         {
             if(i == spriteToEnable){
-                currentSpecial = (SPECIAL)i;
+                currentSpecial = (POWERUPS)i;
                 characters[i].SetActive(true);
             }else{
                 characters[i].SetActive(false);
@@ -138,6 +185,10 @@ public class Player : MonoBehaviour
             gunPositions[i] = guns[i];
         }
     }
+
+    void _PowerupUISendUpdate(float specialFilling){
+        GameController.controller.uiController.increaseSpecialBar(specialFilling);
+    }
         
 
 
@@ -151,5 +202,6 @@ public class Player : MonoBehaviour
         PlayerMovement();
         ShootHandler();
         SpecialHandler();
+        PowerupHandler();
     }
 }

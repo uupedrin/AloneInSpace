@@ -6,17 +6,15 @@ public class Bullet : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(tag);
-        if(tag == "PlayerBullet" && other.tag != "Player"){
+        if(tag == "PlayerBullet" && other.CompareTag("Enemy")){
             //Handle PlayerBullet collision
 
             
         }
         
-        else if(tag == "EnemyBullet" && other.tag != "Enemy"){
+        else if(tag == "EnemyBullet" && other.CompareTag("Player")){
             //Handle EnemyBullet collision
 
-            
         }
     }
 }

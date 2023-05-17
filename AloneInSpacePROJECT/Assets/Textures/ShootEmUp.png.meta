@@ -761,7 +761,7 @@ TextureImporter:
         width: 6
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -782,7 +782,7 @@ TextureImporter:
         width: 6
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -803,7 +803,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -824,7 +824,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -832,6 +832,195 @@ TextureImporter:
       bones: []
       spriteID: 0b10f6e59d048b943b3193b2d10ce2c4
       internalID: -1161532941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerupBarFull
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 131
+        width: 68
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 753416218eb32124cb66e32ede4eb054
+      internalID: -225986254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerupBarEmpty
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 148
+        width: 68
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bd57bbf8f3d8554ba750ddf5c534c4e
+      internalID: 1708500516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShootEmUp_0
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 159
+        width: 2
+        height: 1
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbfffa70eb64a75408a8cb94f07b6647
+      internalID: 663597978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpacebarUp
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 156
+        width: 19
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36af8715d9307f548a35ff0db523204e
+      internalID: -1719953175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpacebarPressed
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 156
+        width: 19
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7920a46be125ebb4e86763dc48e5ae4d
+      internalID: 2055825591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ZKey
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 173
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c2bfe95022e5604abc2bab0924f5e22
+      internalID: 589715206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: XKey
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 173
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c60cf5226876ad34db65bce81b44079d
+      internalID: -286970638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShieldObject
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 49
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 512fb467713605c419b605e8a66e7bb5
+      internalID: 1131155513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NONE
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 49
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 755c1afaed6c73d4696565ea4c766881
+      internalID: -2019569601
       vertices: []
       indices: 
       edges: []
@@ -852,23 +1041,32 @@ TextureImporter:
       PWPBombProjectile: -228729986
       Enemy3: 1849725969
       Enemy5: 172891537
+      ShootEmUp_0: 663597978
+      XKey: -286970638
+      PowerupBarFull: -225986254
       PWPShield: -972193993
       Enemy1: -1041256663
       Projectile1: 76538627
       BigFire2: -25586251
       BallProjectile1: -2020300975
       BigBallProjectile1: -1637012143
+      PowerupBarEmpty: 1708500516
       Boss: 219793234
       Wall1: 672145992
       BigFire1: 910001289
       SPZapper: -992139370
+      SpacebarPressed: 2055825591
       SmallFire1: 1684579422
       SmallFire2: 64444389
+      NONE: -2019569601
       PWPIncreaseFireRate: -1470821427
       Zapper: -101757210
       Enemy2: -1654687820
       BallProjectile2: -887990482
       BigBallProjectile2: -1161532941
+      SpacebarUp: -1719953175
+      ZKey: 589715206
+      ShieldObject: 1131155513
       Wall2: -163479326
       SPBulldozer: 1962077740
       SPMooncrest: -1704393414
