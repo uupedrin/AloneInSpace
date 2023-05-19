@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public GameObject[] characters;
     private enum POWERUPS{SCREENBOMB, LASERBEAM, STARWAY, HEALTHGAIN, MISSILE, FIRERATEUP, SHIELD, NONE}
 
-
+    SpriteRenderer selfSprite;
 
     //MOVEMENT
 
@@ -39,6 +39,9 @@ public class Player : MonoBehaviour
                 break;
         }
         GameController.controller.SetPlayerCharacter(GameController.controller.selectedCharacter);
+        GameController.controller.ResetScoreAndLife();
+        GameController.controller.uiController.SetHealthValue(GameController.controller.MAXHEALTH);
+        GameController.controller.uiController.SetScoreValue(0);
     }
 
     void PlayerMovement(){ //Handle player movement
@@ -64,11 +67,12 @@ public class Player : MonoBehaviour
     //SHOOTING
 
     //variables
-    public GameObject bullet;
+    public GameObject[] bullets = new GameObject[2];
     public Transform[] gunPositions = new Transform[3]; //0 == Arma 1 | 2 == Arma 2 | 3 == Powerup
     bool canFire = true;
     public float fireRate, bulletSpeed, bulletDestroyTime;
     float OGFIRERATE;
+    int currentBullet = 0;
 
     //functions
     void ShootHandler(){
@@ -118,14 +122,15 @@ public class Player : MonoBehaviour
     //functions
     void PowerupUseHandler(){
         if(Input.GetButtonDown("UsePowerup") && currentPwps[0] != POWERUPS.NONE){
+            DisableCurrentPowerup();
             switch(currentPwps[0]){
-                case POWERUPS.SCREENBOMB: DisableCurrentPowerup(); powerupInEffect = POWERUPS.SCREENBOMB; ScreenBomb(); break;
-                case POWERUPS.LASERBEAM: DisableCurrentPowerup(); powerupInEffect = POWERUPS.LASERBEAM; LaserBeam(); break;
-                case POWERUPS.STARWAY: DisableCurrentPowerup(); powerupInEffect = POWERUPS.STARWAY; StarWay(); break;
-                case POWERUPS.HEALTHGAIN: DisableCurrentPowerup(); powerupInEffect = POWERUPS.HEALTHGAIN; HealthGain(); DisableCurrentPowerup(); break;
-                case POWERUPS.MISSILE: DisableCurrentPowerup(); powerupInEffect = POWERUPS.MISSILE; Missile(); break;
-                case POWERUPS.FIRERATEUP: DisableCurrentPowerup(); powerupInEffect = POWERUPS.FIRERATEUP; FireRateUp(); break;
-                case POWERUPS.SHIELD: DisableCurrentPowerup(); powerupInEffect = POWERUPS.SHIELD; Shield(); break;
+                case POWERUPS.SCREENBOMB: powerupInEffect = POWERUPS.SCREENBOMB; ScreenBomb(); break;
+                case POWERUPS.LASERBEAM: powerupInEffect = POWERUPS.LASERBEAM; LaserBeam(); break;
+                case POWERUPS.STARWAY: powerupInEffect = POWERUPS.STARWAY; StartCoroutine("StarWay"); break;
+                case POWERUPS.HEALTHGAIN: powerupInEffect = POWERUPS.HEALTHGAIN; HealthGain(); break;
+                case POWERUPS.MISSILE: powerupInEffect = POWERUPS.MISSILE; Missile(); break;
+                case POWERUPS.FIRERATEUP: powerupInEffect = POWERUPS.FIRERATEUP; FireRateUp(); break;
+                case POWERUPS.SHIELD: powerupInEffect = POWERUPS.SHIELD; Shield(); break;
             }
             _UsePowerup();           
         }
@@ -133,49 +138,60 @@ public class Player : MonoBehaviour
 
     void DisableCurrentPowerup(){
         switch(powerupInEffect){
-            case POWERUPS.SCREENBOMB: ScreenBomb(); break;
-                case POWERUPS.LASERBEAM: LaserBeam(); break;
-                case POWERUPS.STARWAY: StarWay(); break;
-                case POWERUPS.HEALTHGAIN: HealthGain(); break;
-                case POWERUPS.MISSILE: Missile(); break;
-                case POWERUPS.FIRERATEUP: FireRateUp(); break;
-                case POWERUPS.SHIELD: Shield(); break;
+            case POWERUPS.LASERBEAM: LaserBeam(); break;
+            case POWERUPS.HEALTHGAIN: HealthGain(); break;
+            case POWERUPS.MISSILE: Missile(); break;
+            case POWERUPS.FIRERATEUP: FireRateUp(); break;
+            case POWERUPS.SHIELD: Shield(); break;
         }
     }
 
 
     //Powerups Variables
     bool screenBombIsActive, laserBeamIsActive, starWayIsActive, healthGainIsActive, missileIsActive, fireRateisActive, shieldIsActive;
+    
+    public ScreenBomb screenBombArea;
+    
     void ScreenBomb(){
         screenBombIsActive = !screenBombIsActive;
         if(screenBombIsActive){
-
-        }else{//when disabled
-
+            screenBombArea.screenBombActive = screenBombIsActive;
+            screenBombIsActive = false;
+            screenBombArea.screenBombActive = screenBombIsActive;
         }
     }
     void LaserBeam(){
         laserBeamIsActive = !laserBeamIsActive;
 
     }
-    void StarWay(){
+    IEnumerator StarWay(){
         starWayIsActive = !starWayIsActive;
+        GameController.controller.starWayActive = starWayIsActive;
+        if(starWayIsActive){
+            _ChangeColor();
+            yield return new WaitForSeconds(10);
+            _NormalColor();
+            starWayIsActive = false;
+            GameController.controller.starWayActive = starWayIsActive;
+        }
 
     }
     void HealthGain(){
         healthGainIsActive = !healthGainIsActive;
         if(healthGainIsActive){
             GameController.controller.IncreasePlayerHealth();
+            Invoke("_Blink", 1f);
         }
-
-
     }
+
     void Missile(){
         missileIsActive = !missileIsActive;
         if(missileIsActive){
-
+            currentBullet = 1;
+            fireRate *= 2;
         }else{
-
+            currentBullet = 0;
+            fireRate = OGFIRERATE;
         }
 
     }
@@ -211,6 +227,7 @@ public class Player : MonoBehaviour
             if(i == spriteToEnable){
                 currentSpecial = (POWERUPS)i;
                 characters[i].SetActive(true);
+                selfSprite = characters[i].GetComponentInChildren<SpriteRenderer>();
             }else{
                 characters[i].SetActive(false);
             }
@@ -220,9 +237,18 @@ public class Player : MonoBehaviour
     IEnumerator _Fire()
     {
         canFire = false;
-        for (int i = 0; i < 2; i++)
-        {
-            GameObject tempBullet = Instantiate(bullet, gunPositions[i].position, transform.rotation);
+        if(currentBullet == 0){
+            for (int i = 0; i < 2; i++)
+            {
+                GameObject tempBullet = Instantiate(bullets[currentBullet], gunPositions[i].position, transform.rotation);
+                tempBullet.tag = "PlayerBullet";
+                Rigidbody tempRb = tempBullet.GetComponent<Rigidbody>();
+                tempRb.AddForce(Vector3.up * bulletSpeed, ForceMode.VelocityChange);
+                Destroy(tempBullet, bulletDestroyTime);
+            }
+        }
+        else{
+            GameObject tempBullet = Instantiate(bullets[currentBullet], gunPositions[2].position, transform.rotation);
             tempBullet.tag = "PlayerBullet";
             Rigidbody tempRb = tempBullet.GetComponent<Rigidbody>();
             tempRb.AddForce(Vector3.up * bulletSpeed, ForceMode.VelocityChange);
@@ -270,7 +296,14 @@ public class Player : MonoBehaviour
             _UpdatePowerupUI();
         }
     }
-        
+    
+    public void _ChangeColor(){
+        selfSprite.color = new Color (0,255,238,255);
+    }
+    public void _NormalColor(){
+        selfSprite.color = new Color (255,255,255,255);
+    }
+
 
 
     //Unity Functions
@@ -292,6 +325,7 @@ public class Player : MonoBehaviour
         if(collisionInfo.gameObject.CompareTag("Powerup")){
             GameObject powerup = collisionInfo.gameObject;
             _SetPowerup(powerup.GetComponent<Powerups>().powerupIndex);
+            Destroy(collisionInfo.gameObject);
         }
     }
 }

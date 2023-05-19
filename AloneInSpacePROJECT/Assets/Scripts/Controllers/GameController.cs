@@ -9,6 +9,11 @@ public class GameController : MonoBehaviour
 
     public PlayerCharacter selectedCharacter;
     public int score, health, MAXHEALTH;
+
+    public bool starWayActive = false;
+
+
+
     private void Awake() {
         if(controller == null){
             controller = this;
@@ -49,14 +54,31 @@ public class GameController : MonoBehaviour
     public void ReducePlayerHealth(int amount=1){
         health-= amount;
         if(health < 0){
-            
+            ToggleMouseCursor();
+            uiController.ChangeScene("Defeat");
         }
+        uiController.SetHealthValue(health);
     }
 
     public void IncreasePlayerHealth(int amount = 1){
         health+= amount;
         if (health > MAXHEALTH){
             health = MAXHEALTH;
+        }
+        uiController.SetHealthValue(health);
+    }
+
+    public void ResetScoreAndLife(){
+        score = 0;
+        health = MAXHEALTH;
+    }
+
+    public void increasePlayerScore(int amount){
+        score+= amount;
+        uiController.SetScoreValue(score);
+        if(score>= 5000){
+            ToggleMouseCursor();
+            uiController.ChangeScene("Victory");
         }
     }
 }

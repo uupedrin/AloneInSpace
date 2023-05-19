@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 904788197057983735}
   m_Layer: 0
   m_Name: Mooncrest
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -309,7 +309,9 @@ MonoBehaviour:
   - {fileID: 6818886658015539881}
   - {fileID: 2797555601945595128}
   moveSpeed: 7
-  bullet: {fileID: 291390439819984633, guid: 857da763e9969e04a9ee05bb92beee43, type: 3}
+  bullets:
+  - {fileID: 291390439819984633, guid: 857da763e9969e04a9ee05bb92beee43, type: 3}
+  - {fileID: 291390439819984633, guid: cfe31d060cf7c1243915f7e166e8aab0, type: 3}
   gunPositions:
   - {fileID: 0}
   - {fileID: 0}
@@ -673,7 +675,7 @@ GameObject:
   - component: {fileID: 6986771391537817507}
   m_Layer: 0
   m_Name: Bulldozer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -835,7 +837,7 @@ GameObject:
   - component: {fileID: 819630818205748157}
   m_Layer: 0
   m_Name: Zapper
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

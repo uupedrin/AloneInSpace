@@ -8,6 +8,8 @@ public class UIController : MonoBehaviour
     public Animator fadeAnimator;
     public int audioToPlay;
     private PlayerCharacter selectedCharacter;
+    public Text TXT_SCORE;
+    public Text TXT_HEALTH;
     private void Start() {
         GameController.controller.uiController = this;
         MusicController.controller.ChangeSong(audioToPlay);
@@ -63,5 +65,16 @@ public class UIController : MonoBehaviour
     }
     public void SetPowerupImages(int boxIndex, int imageIndex){
         powerUpBoxes[boxIndex].sprite = powerUpImages[imageIndex];
+    }
+
+    public void SetScoreValue(int value){
+        TXT_SCORE.text = "Score: " + value.ToString();
+    }
+    public void SetHealthValue(int value){
+        TXT_HEALTH.text = "Health: " + value.ToString();
+    }
+
+    public void ExitGame(){
+        Application.Quit();
     }
 }

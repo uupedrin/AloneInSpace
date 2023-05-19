@@ -1013,7 +1013,7 @@ TextureImporter:
         width: 17
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1021,6 +1021,48 @@ TextureImporter:
       bones: []
       spriteID: 755c1afaed6c73d4696565ea4c766881
       internalID: -2019569601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletBox
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 41
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c30fa317113b4564bbae8c6b23033c12
+      internalID: -1223389592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonBack
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 114
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5879e279c5954bd4292a07d42dc5d332
+      internalID: 1653663549
       vertices: []
       indices: 
       edges: []
@@ -1036,14 +1078,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Moon1: 1311372765
-      PlayerSelectBox: 1088665419
-      PWPBombProjectile: -228729986
       Enemy3: 1849725969
-      Enemy5: 172891537
+      PWPBombProjectile: -228729986
       ShootEmUp_0: 663597978
-      XKey: -286970638
-      PowerupBarFull: -225986254
       PWPShield: -972193993
       Enemy1: -1041256663
       Projectile1: 76538627
@@ -1052,31 +1089,38 @@ TextureImporter:
       BigBallProjectile1: -1637012143
       PowerupBarEmpty: 1708500516
       Boss: 219793234
-      Wall1: 672145992
-      BigFire1: 910001289
-      SPZapper: -992139370
-      SpacebarPressed: 2055825591
-      SmallFire1: 1684579422
       SmallFire2: 64444389
       NONE: -2019569601
       PWPIncreaseFireRate: -1470821427
       Zapper: -101757210
       Enemy2: -1654687820
-      BallProjectile2: -887990482
-      BigBallProjectile2: -1161532941
-      SpacebarUp: -1719953175
       ZKey: 589715206
-      ShieldObject: 1131155513
       Wall2: -163479326
-      SPBulldozer: 1962077740
-      SPMooncrest: -1704393414
       Projectile2: 1999017069
-      Moon2: -1047174377
-      Bulldozer: -1028843892
-      PWPIncreaseHealth: 1620161252
       Mooncrest: -308417638
       PowerupBox: 149421758
       ProximityBomb: -26161342
+      Moon1: 1311372765
+      PlayerSelectBox: 1088665419
+      Enemy5: 172891537
+      XKey: -286970638
+      PowerupBarFull: -225986254
+      Wall1: 672145992
+      BigFire1: 910001289
+      SPZapper: -992139370
+      SpacebarPressed: 2055825591
+      SmallFire1: 1684579422
+      BigBallProjectile2: -1161532941
+      BallProjectile2: -887990482
+      ButtonBack: 1653663549
+      SpacebarUp: -1719953175
+      ShieldObject: 1131155513
+      SPBulldozer: 1962077740
+      SPMooncrest: -1704393414
+      Moon2: -1047174377
+      Bulldozer: -1028843892
+      PWPIncreaseHealth: 1620161252
+      BulletBox: -1223389592
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
